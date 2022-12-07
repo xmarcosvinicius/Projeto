@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'reac
 import { SearchBar } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
+import api from '../../services/Api';
 
 import List from '../../components/List';
 
@@ -20,6 +21,23 @@ export default function Home({ navigation }){
             </TouchableOpacity>  
           )
      })
+
+     const produtos = ['teste'];
+  
+    api.get("/index.php/produtos")
+        .then((response) => {
+        produtos = response.data
+        console.log(response.data)
+        })
+        .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+    });
+
+
+   
+        
+
+
     return(
         
         <View style={styles.container}>
@@ -63,6 +81,7 @@ export default function Home({ navigation }){
                     </List>
                 </View>
             </ScrollView>
+            <Text>{produtos}</Text>
            
         </View>
         
